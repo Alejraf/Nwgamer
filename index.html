@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f172a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>Mobile Web App</title>
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Cabecera fija estilo App Nativa -->
+    <header class="app-header">
+      <div class="header-content">
+        <div>
+          <h1 id="pageTitle">Inicio</h1>
+          <p class="subtitle" id="connectionStatus">Conectando...</p>
+        </div>
+        <button id="installBtn" class="btn-install hidden" aria-label="Instalar App">Instalar</button>
+      </div>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="app-main">
+      <!-- Vista 1: Inicio / Tareas -->
+      <section id="view-home" class="view active">
+        <div class="stats-row">
+          <div class="stat-card">
+            <span class="stat-value" id="totalCount">0</span>
+            <span class="stat-label">Total</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value" id="pendingCount">0</span>
+            <span class="stat-label">Pendientes</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value" id="doneCount">0</span>
+            <span class="stat-label">Listos</span>
+          </div>
+        </div>
+
+        <form id="itemForm" class="add-form">
+          <input type="text" id="itemTitle" placeholder="Nueva tarea o registro..." required autocomplete="off" />
+          <div class="form-row">
+            <select id="itemCategory">
+              <option value="General">General</option>
+              <option value="Desarrollo">Desarrollo</option>
+              <option value="Contenido">Contenido</option>
+              <option value="Urgente">Urgente</option>
+            </select>
+            <button type="submit" class="btn-primary">+ Agregar</button>
+          </div>
+        </form>
+
+        <div class="section-header">
+          <h2>Registros recientes</h2>
+          <button id="refreshBtn" class="btn-ghost" title="Actualizar">Actualizar</button>
+        </div>
+
+        <ul id="itemsList" class="item-list"></ul>
+      </section>
+
+      <!-- Vista 2: Explorar / Resumen -->
+      <section id="view-explore" class="view">
+        <div class="card">
+          <h3>Arquitectura lista para producción</h3>
+          <p>Este proyecto está estructurado con diseño <strong>Mobile-First</strong>, navegación inferior táctil, <strong>Service Worker</strong> para caché offline y API REST en Node.js/Express.</p>
+        </div>
+        <div class="card">
+          <h3>Compatible con APK / PWA</h3>
+          <p>Incluye <code>manifest.json</code> válido para instalar directamente en Android/iOS o empaquetar como TWA/WebView APK tras desplegar en Render.</p>
+        </div>
+      </section>
+
+      <!-- Vista 3: Ajustes -->
+      <section id="view-settings" class="view">
+        <div class="card">
+          <h3>Estado del Backend</h3>
+          <p id="apiInfo">Endpoint activo: <code>/api/items</code></p>
+          <button id="testApiBtn" class="btn-secondary">Probar conexión API</button>
+        </div>
+      </section>
+    </main>
+
+    <!-- Barra de navegación inferior móvil -->
+    <nav class="bottom-nav" aria-label="Navegación principal">
+      <button class="nav-item active" data-target="view-home" data-title="Inicio">
+        <span class="nav-icon">⌂</span>
+        <span class="nav-text">Inicio</span>
+      </button>
+      <button class="nav-item" data-target="view-explore" data-title="Detalles">
+        <span class="nav-icon">◈</span>
+        <span class="nav-text">Detalles</span>
+      </button>
+      <button class="nav-item" data-target="view-settings" data-title="Ajustes">
+        <span class="nav-icon">⚙</span>
+        <span class="nav-text">Ajustes</span>
+      </button>
+    </nav>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="/app.js"></script>
+</body>
+</html>
